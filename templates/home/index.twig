@@ -64,25 +64,25 @@
 {#                         on July 8, 2021#}
 {#                     </p>#}
 {#                 </div>#}
-                 {% for blog in output['hydra:member'] %}
 
-             </div>
-             <!-- Divider-->
-             <hr class="my-4"/>
-             <!-- Post preview-->
-             <div class="post-preview">
-                 <a href="/post">
-                     <h2 class="post-title">{{ blog.title  }}</h2>
-                     <h3 class="post-subtitle">{{ blog.content }}</h3>
-                 </a>
-                 <p class="post-meta">
-                     Posted by
-                     <a href="#!">Quoc Le</a>
-                     on {{ blog.timestamp }}
-                 </p>
-             </div>
+                 {% for blog in listBlog['hydra:member'] %}
+                     </div>
+                     <!-- Divider-->
+                     <hr class="my-4"/>
+                     <!-- Post preview-->
+                     <div class="post-preview">
+                         <a href="/post">
+                             <h2 class="post-title">{{ blog.title  }}</h2>
+                             <h3 class="post-subtitle">{{ blog.content }}</h3>
+                         </a>
+                         <p class="post-meta">
+                             Posted by
+                             <a href="#!">Quoc Le</a>
+                             on {{ blog.timestamp }}
+                         </p>
+                      </div>
+                 {% endfor %}
 
-             {% endfor %}
                  <!-- Divider-->
                  <hr class="my-4"/>
                  <!-- Pager-->
