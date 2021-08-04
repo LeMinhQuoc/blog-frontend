@@ -12,11 +12,7 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         $client = new APIHelper();
-        $response = $client -> get() -> request('GET', '/api/blogs', [
-            'query' => [
-                'page' => '1',
-            ]
-        ]);;
+        $response = $client -> get('api/blogs') ;
         $body = $response -> getBody() -> getContents();
         $arr= json_decode($body,true);
         return $this -> render('home/index.twig', array('listBlog'=>$arr));

@@ -11,7 +11,11 @@ class APIHelper
         'base_uri' => 'https://127.0.0.1:8001',
         ]);
     }
-    public function get() {
-        return $this -> client;
+    public function get(string $router) {
+        return $this -> client-> request('GET', $router, [
+            'query' => [
+                'page' => '1',
+            ]
+        ]);;
     }
 }
