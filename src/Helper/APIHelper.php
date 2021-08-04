@@ -12,10 +12,10 @@ class APIHelper
         ]);
     }
     public function get(string $router) {
-        return $this -> client-> request('GET', $router, [
+        return json_decode($this -> client-> request('GET', $router, [
             'query' => [
                 'page' => '1',
             ]
-        ]);;
+        ]) -> getBody() -> getContents(), true);
     }
 }

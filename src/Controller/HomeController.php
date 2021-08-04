@@ -13,8 +13,6 @@ class HomeController extends AbstractController
     {
         $client = new APIHelper();
         $response = $client -> get('api/blogs') ;
-        $body = $response -> getBody() -> getContents();
-        $arr= json_decode($body,true);
-        return $this -> render('home/index.twig', array('listBlog'=>$arr));
+        return $this -> render('home/index.twig', array('listBlog'=>$response));
     }
 }
