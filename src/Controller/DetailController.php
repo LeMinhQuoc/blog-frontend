@@ -12,9 +12,8 @@ class DetailController extends AbstractController
     /**
      * @Route("/post/{id}", name="app_post")
      */
-    public function index(string $id): Response
+    public function index(APIHelper $client,string $id): Response
     {
-        $client = new APIHelper();
         $response = $client -> get('api/blogs/'.$id) ;
         return $this -> render('detail/index.twig', array('blogDetail'=>$response));
     }
