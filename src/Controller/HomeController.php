@@ -9,7 +9,8 @@ class HomeController extends AbstractController
     /**
      * @Route("", name="app_home")
      */
-    public function index(): Response
+    public function index(APIHelper $client): Response
+
     {
         $client = new APIHelper();
         $response = $client -> get('api/blogs') ;
