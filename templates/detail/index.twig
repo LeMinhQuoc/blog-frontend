@@ -2,10 +2,10 @@
  {% block body %}
      {% include "blog_title.twig"
          with {
-             "title": "Man must explore, and this is exploration at its greatest",
-             "subHeading": "Problems look mighty small from 150 miles up",
-             "postBy": "Start Bootstrap",
-             "postOn": "on August 24, 2021"
+             "title": blogDetail.title,
+             "subHeading": blogDetail.content,
+             "postBy": 'Quoc le',
+             "postOn": blogDetail.timestamp
          }
      %}
      <!-- Post Content-->
