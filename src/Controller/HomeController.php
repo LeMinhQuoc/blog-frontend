@@ -9,9 +9,11 @@ class HomeController extends AbstractController
     /**
      * @Route("", name="app_home")
      */
-    public function index(APIHelper $client ): Response
+    public function index(APIHelper $client): Response
     {
         $response = $client -> get('api/blogs') ;
         return $this -> render('home/index.twig', array('listBlog'=>$response));
     }
+
+
 }
