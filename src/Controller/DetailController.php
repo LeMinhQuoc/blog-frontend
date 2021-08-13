@@ -9,10 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DetailController extends AbstractController
 {
-    /**
-     * @Route("/post/{id}", name="app_post")
-     */
-    public function index(APIHelper $client,string $id): Response
+    #[Route('/post/{id} ', name: 'post', methods: ['GET'])]
+    public function index(APIHelper $client, string $id): Response
     {
         $response = $client->get('api/blogs/'.$id) ;
         return $this->render('detail/index.twig', array('blogDetail'=>$response));

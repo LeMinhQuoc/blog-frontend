@@ -13,13 +13,12 @@ use App\Helper\APIHelper;
 class LoginController extends AbstractController
 
 {
-
-    #[Route('/slogin ', name: 'login', methods: ['POST'])]
+    #[Route('/security_login ', name: 'login', methods: ['POST'])]
     public function login(APIHelper $helper,Request $input) {
-
+        $_SESSION["token"]="";
         $username = $input->get('username');
         $password = $input->get('password');
-
+        $helper->getLogin($username,$password);
         return $this->redirect($this->generateUrl('app_home'));
 
     }
