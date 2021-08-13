@@ -25,7 +25,7 @@ class LikeController extends AbstractController
         $uId=$jwtPayload->userId;
         $client->postLike($id,$token,$uId);
 
-        return $this->redirect($this->generateUrl('app_home'));
+//        return $this->redirect($this->generateUrl('app_home'));
 
 
 

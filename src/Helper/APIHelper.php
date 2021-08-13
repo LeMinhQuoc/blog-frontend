@@ -42,17 +42,31 @@ class APIHelper
 
         $term=json_decode($token,true);
         $auths=$term['token'];
-        return json_decode($this -> client-> request('POST','/api/likes', [
-            "headers" => [
-                "Content-Type" => "application/json",
-                "Authorization" => 'Bearer'." ".$auths
-            ],
-            'body'=>json_encode([
-                'idPost'=>"/api/blogs/".$bId,
-                'idUser'=>"/api/users/".$uId
-            ])
+//       try{
+//           json_decode($this -> client-> request('POST','/api/likes', [
+//            "headers" => [
+//                "Content-Type" => "application/json",
+//                "Authorization" => 'Bearer'." ".$auths
+//            ],
+//            'body'=>json_encode([
+//                'idPost'=>"/api/blogs/".$bId,
+//                'idUser'=>"/api/users/".$uId
+//            ])
+//
+//        ]) -> getBody() -> getContents(), true);
+//       }catch (Exception $e) {
+           json_decode($this -> client-> request('POST','/delikes', [
+               "headers" => [
+                   "Content-Type" => "application/json"
+               ],
+               'body'=>json_encode([
+                   'idBlog'=>$bId,
+                   'idUser'=>$uId
+               ])
 
-        ]) -> getBody() -> getContents(), true);
+           ]) -> getBody() -> getContents(), true);
+//       }
+
     }
 
     public function getLike(string $token) {
