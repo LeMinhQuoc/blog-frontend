@@ -36,7 +36,25 @@
                          <a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>
                      </p>
                  </div>
+                     <form action="/comment/{{ blogDetail.id }}" method="post">
+                         <label >Comments</label>
+                         <input type="text" id="content" name="content" required >
+                         <button type="submit" class="btn btn-primary" >
+                             <i class="fa fa-sign-in" aria-hidden="true">Submit</i>
+                         </button>
+                     </form>
+
              </div>
+             {% for blog in blogDetail['comments'] %}
+               <div>
+                 <b>{{ blog['idUser']}}</b>
+                 <p>{{  blog['comment'] }}</p>
+               </div>
+{#                 {{ dump(blog['idUser']) }}#}
+{#                 {{ dump(blog['comment']) }}#}
+
+
+             {% endfor %}
          </div>
      </article>
      <!-- Footer-->

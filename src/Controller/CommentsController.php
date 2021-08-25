@@ -6,16 +6,18 @@ namespace App\Controller;
 use App\Helper\APIHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class LikeController extends AbstractController
+class CommentsController extends AbstractController
 {
 
-    #[Route('/like/{id}', name: 'like')]
-    public function index(APIHelper $client, string $id)
+    #[Route('/comment/{id} ', name: 'comment', methods: ['POST'])]
+    public function index(APIHelper $client,string $id, Request $input )
     {
-        session_start();
+
+
         $token=$_SESSION["token"];
         $tokenParts = explode(".",$token);
         $tokenHeader = base64_decode($tokenParts[0]);
@@ -23,11 +25,13 @@ class LikeController extends AbstractController
         $jwtHeader = json_decode($tokenHeader);
         $jwtPayload = json_decode($tokenPayload);
         $uId=$jwtPayload->userId;
-        $client->postComments($id,$token,$uId,"hi");
+        $client->postComments($id,$token,$uId, $input->get("content"));
 
-//        return $this->redirect($this->generateUrl('app_home'));
+        return $this->redirect($this->generateUrl('post',[
+            'id' => $id
+        ]));
 
-
+        return new JsonResponse(['success' => true]);
 
 
     }

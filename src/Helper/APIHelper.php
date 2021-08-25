@@ -35,6 +35,22 @@ class APIHelper
         ]) -> getBody() -> getContents(), true);
     }
 
+    public function getComments(string $bid) {
+
+        $auth=$_SESSION["token"];
+        $term=json_decode($auth,true);
+        $auths=$term['token'];
+        return json_decode($this -> client-> request('GET', "api", [
+            "headers" => [
+                "Content-Type" => "application/json",
+                "Authorization" => 'Bearer'." ".$auths
+            ],
+            'body'=>json_encode([
+                'idPost'=>$bid
+            ])
+        ]) -> getBody() -> getContents(), true);
+    }
+
 
 
     public function postLike( string $bId,string $token,string $uId) {
@@ -42,29 +58,51 @@ class APIHelper
 
         $term=json_decode($token,true);
         $auths=$term['token'];
-//       try{
-//           json_decode($this -> client-> request('POST','/api/likes', [
-//            "headers" => [
-//                "Content-Type" => "application/json",
-//                "Authorization" => 'Bearer'." ".$auths
-//            ],
-//            'body'=>json_encode([
-//                'idPost'=>"/api/blogs/".$bId,
-//                'idUser'=>"/api/users/".$uId
-//            ])
-//
-//        ]) -> getBody() -> getContents(), true);
-//       }catch (Exception $e) {
-           json_decode($this -> client-> request('POST','/delikes', [
-               "headers" => [
-                   "Content-Type" => "application/json"
-               ],
-               'body'=>json_encode([
-                   'idBlog'=>$bId,
-                   'idUser'=>$uId
-               ])
 
-           ]) -> getBody() -> getContents(), true);
+           json_decode($this -> client-> request('POST','/api/likes', [
+            "headers" => [
+                "Content-Type" => "application/json",
+                "Authorization" => 'Bearer'." ".$auths
+            ],
+            'body'=>json_encode([
+                'idPost'=>"/api/blogs/".$bId,
+                'idUser'=>"/api/users/".$uId
+            ])
+        ]) -> getBody() -> getContents(), true);
+//       }catch (Exception $e) {
+//           json_decode($this -> client-> request('POST','/delikes', [
+//               "headers" => [
+//                   "Content-Type" => "application/json"
+//               ],
+//               'body'=>json_encode([
+//                   'idBlog'=>$bId,
+//                   'idUser'=>$uId
+//               ])
+//
+//           ]) -> getBody() -> getContents(), true);
+////       }
+
+    }
+    public function postComments( string $bId,string $token,string $uId,string $content) {
+
+
+        $term=json_decode($token,true);
+        $auths=$term['token'];
+
+        json_decode($this -> client-> request('POST','/api/comments', [
+            "headers" => [
+                "Content-Type" => "application/json"
+            ],
+            'body'=>json_encode([
+                'idPost'=>'/api/blogs/'.$bId,
+                'idUser'=>'/api/users/'.$uId,
+                'comment'=>$content,
+                'timestamp'=> "2021-08-19T08:40:00.801Z",
+                'parentId'=>null
+            ])
+
+        ]) -> getBody() -> getContents(), true);
+
 //       }
 
     }
