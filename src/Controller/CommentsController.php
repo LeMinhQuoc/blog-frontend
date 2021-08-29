@@ -16,8 +16,6 @@ class CommentsController extends AbstractController
     #[Route('/comment/{id} ', name: 'comment', methods: ['POST'])]
     public function index(APIHelper $client,string $id, Request $input )
     {
-
-
         $token=$_SESSION["token"];
         $tokenParts = explode(".",$token);
         $tokenHeader = base64_decode($tokenParts[0]);

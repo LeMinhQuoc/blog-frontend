@@ -13,8 +13,14 @@ class DetailController extends AbstractController
     public function index(APIHelper $client, string $id): Response
     {
         $response = $client->get('api/blogs/'.$id) ;
-        $comment = $client->getComments('api/comments'.$id);
-
-      return $this->render('detail/index.twig', array('blogDetail'=>$response, 'comment'=>$comment));
+        foreach ( $response['comments'] as $key => $com ) {
+            $term= ($client->getUserName($com['idUser']));
+            $response['comments'][$key] = $term['fullName'];
+            }
+//        $out=$response;
+//        var_dump($out);
+//        die();
+//        $comment = $client->get($response['comments']['idUser']);
+      return $this->render('detail/index.twig', array('blogDetail'=>$response));
     }
 }

@@ -35,27 +35,27 @@ class APIHelper
         ]) -> getBody() -> getContents(), true);
     }
 
-    public function getComments(string $bid) {
+
+
+    public function getUserName(string $router) {
 
         $auth=$_SESSION["token"];
         $term=json_decode($auth,true);
         $auths=$term['token'];
-        return json_decode($this -> client-> request('GET', "api", [
+        return json_decode($this -> client-> request('GET', $router, [
             "headers" => [
                 "Content-Type" => "application/json",
                 "Authorization" => 'Bearer'." ".$auths
             ],
-            'body'=>json_encode([
-                'idPost'=>$bid
-            ])
+            'query' => [
+                'page' => '1',
+            ]
         ]) -> getBody() -> getContents(), true);
     }
 
 
 
     public function postLike( string $bId,string $token,string $uId) {
-
-
         $term=json_decode($token,true);
         $auths=$term['token'];
 
@@ -69,26 +69,10 @@ class APIHelper
                 'idUser'=>"/api/users/".$uId
             ])
         ]) -> getBody() -> getContents(), true);
-//       }catch (Exception $e) {
-//           json_decode($this -> client-> request('POST','/delikes', [
-//               "headers" => [
-//                   "Content-Type" => "application/json"
-//               ],
-//               'body'=>json_encode([
-//                   'idBlog'=>$bId,
-//                   'idUser'=>$uId
-//               ])
-//
-//           ]) -> getBody() -> getContents(), true);
-////       }
-
     }
     public function postComments( string $bId,string $token,string $uId,string $content) {
-
-
         $term=json_decode($token,true);
         $auths=$term['token'];
-
         json_decode($this -> client-> request('POST','/api/comments', [
             "headers" => [
                 "Content-Type" => "application/json"
@@ -102,14 +86,9 @@ class APIHelper
             ])
 
         ]) -> getBody() -> getContents(), true);
-
-//       }
-
     }
 
     public function getLike(string $token) {
-
-
         $term=json_decode($token,true);
         $auths=$term['token'];
         return json_decode($this -> client-> request('GET','/api/likes', [
@@ -121,7 +100,6 @@ class APIHelper
     }
 
     public function getLogin(string $username, string $password){
-
         $response = $this->client->request('POST', "/api/login_check", [
 
             'headers' => [
@@ -134,6 +112,5 @@ class APIHelper
         ]);
         $_SESSION["token"] = $response->getBody()->getContents();
     }
-
 
 }
